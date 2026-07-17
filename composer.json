@@ -1,0 +1,38 @@
+{
+    "name": "oidc-client/sdk",
+    "description": "Framework Agnostic OpenID Connect Client SDK",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+
+    "require": {
+        "php": "^8.1",
+        "composer-plugin-api": "^2.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "OidcClient\\": "packages/php/core/src/",
+            "OidcClient\\Composer\\": "src/Composer/"
+        }
+    },
+
+    "type": "composer-plugin",
+
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "^13.2"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OidcClient\\Integration\\Laravel\\OidcServiceProvider"
+            ]
+        }
+    }
+}
