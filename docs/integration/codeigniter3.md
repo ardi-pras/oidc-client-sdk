@@ -206,10 +206,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 return [
         'authorization_endpoint' => 'https://provider.example.com/authorize',
         'issuer' => null, // optional jika Anda menggunakan 'authorization_endpoint'
-        'oidc_client_id' => 'your_client_id',
-        'oidc_client_secret' => 'your_client_secret',
-        'oidc_redirect_uri' => 'https://your-app.com/sso-callback',
-        'oidc_scope' => ['openid','profile','email'],
+        'client_id' => 'your_client_id',
+        'client_secret' => 'your_client_secret',
+        'redirect_uri' => 'https://your-app.com/sso-callback',
+        'scope' => ['openid','profile','email'],
         'oidc_redirect_on_success' => 'dashboard',
         'oidc_redirect_on_failure' => 'login',
         'oidc_redirect_on_logout' => '/',
@@ -225,10 +225,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 return [
         'authorization_endpoint' => 'https://provider.example.com/authorize',
         'issuer' => null, // optional jika Anda menggunakan 'authorization_endpoint'
-        'oidc_client_id' => 'your_client_id',
-        'oidc_client_secret' => 'your_client_secret',
-        'oidc_redirect_uri' => 'https://your-app.com/sso-callback',
-        'oidc_scope' => ['openid','profile','email'],
+        'client_id' => 'your_client_id',
+        'client_secret' => 'your_client_secret',
+        'redirect_uri' => 'https://your-app.com/sso-callback',
+        'scope' => ['openid','profile','email'],
         'oidc_redirect_on_success' => 'dashboard',
         'oidc_redirect_on_failure' => 'login',
         'oidc_redirect_on_logout' => '/',
