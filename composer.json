@@ -2,7 +2,6 @@
     "name": "oidc-client/sdk",
     "description": "Framework Agnostic OpenID Connect Client SDK",
     "version": "1.0.1",
-    "type": "library",
     "license": "MIT",
 
     "require": {
