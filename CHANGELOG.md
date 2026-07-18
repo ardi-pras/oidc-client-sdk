@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - 2026-07-18
+
+### Fixed
+- Hardened OIDC builder handling for missing `client_id`, `client_secret`, and `redirect_uri` values.
+- Added regression coverage for missing configuration values.
+
+## [1.0.5] - 2026-07-18
+
+### Fixed
+- Published the latest SDK release tag and aligned package documentation for the OIDC integration flow.
+
 ## [1.0.1] - 2026-07-17
 
 ### Fixed

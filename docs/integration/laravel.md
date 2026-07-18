@@ -23,7 +23,7 @@ Pastikan:
 
 - Aplikasi Laravel (10/11) berjalan
 - Composer telah terinstal
-- Anda mempunyai kredensial OIDC dari provider SSO: `authorization_endpoint`/`issuer`, `client_id`, `client_secret`, `redirect_uri`
+- Anda mempunyai kredensial OIDC dari provider SSO: `authorization_endpoint`/`issuer`, `client_id`, `client_secret`, dan `redirect_uri`
 - URL `redirect_uri` sudah didaftarkan di provider SSO dan cocok persis
 
 ---

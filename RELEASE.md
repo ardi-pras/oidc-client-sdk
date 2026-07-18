@@ -1,6 +1,6 @@
-Release 1.0.0
+Release 1.0.6
 
-This repository has been tagged with version 1.0.0.
+This repository has been tagged with version 1.0.6.
 
 How to install:
 

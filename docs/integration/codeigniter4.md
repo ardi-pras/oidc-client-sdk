@@ -10,7 +10,7 @@ Sebelum memulai, pastikan hal-hal berikut sudah tersedia:
 
 - Aplikasi CodeIgniter 4 sudah berjalan.
 - Composer sudah terinstall.
-- Anda memiliki kredensial OIDC dari penyedia SSO.
+- Anda memiliki kredensial OIDC dari penyedia SSO, termasuk `clientId`, `clientSecret`, dan `redirectUri`.
 - Redirect URI aplikasi sudah terdaftar di server SSO.
 
 ---

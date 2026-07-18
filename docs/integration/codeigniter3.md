@@ -24,7 +24,7 @@ Pastikan:
 
 - Aplikasi CodeIgniter 3 berjalan (PHP 8.1+ direkomendasikan)
 - Composer terinstal dan dapat dijalankan dari folder proyek
-- Anda memiliki kredensial dari provider OIDC/SSO: `issuer` (atau authorization endpoint), `client_id`, `client_secret`, `redirect_uri`
+- Anda memiliki kredensial dari provider OIDC/SSO: `issuer` (atau authorization endpoint), `client_id`, `client_secret`, dan `redirect_uri`
 - Redirect URI telah didaftarkan di provider SSO dan cocok persis
 
 ---
@@ -198,6 +198,25 @@ class OidcController extends CI_Controller
 ```
 
 1. Buat file `application/config/oidc.php` jika belum ada, lalu isi dengan contoh konfigurasi berikut:
+
+```php
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+return [
+        'authorization_endpoint' => 'https://provider.example.com/authorize',
+        'issuer' => null, // optional jika Anda menggunakan 'authorization_endpoint'
+        'oidc_client_id' => 'your_client_id',
+        'oidc_client_secret' => 'your_client_secret',
+        'oidc_redirect_uri' => 'https://your-app.com/sso-callback',
+        'oidc_scope' => ['openid','profile','email'],
+        'oidc_redirect_on_success' => 'dashboard',
+        'oidc_redirect_on_failure' => 'login',
+        'oidc_redirect_on_logout' => '/',
+];
+```
+
+> Pastikan `oidc_client_id`, `oidc_client_secret`, dan `oidc_redirect_uri` diisi sebelum memulai login. Nilai yang hilang akan memicu exception konfigurasi yang jelas.
 
 ```php
 <?php

@@ -36,6 +36,8 @@ composer require oidc-client/sdk
 
 ## Quick Start
 
+> Required configuration values: `client_id`, `client_secret`, and `redirect_uri` must be provided before building the client. If any of them are missing, the SDK now raises a clear configuration exception instead of failing with a PHP warning.
+
 ### 1. Build Client Instance
 
 Configure the builder with your SSO provider credentials:
@@ -67,7 +69,7 @@ $result = $oidc->authenticate($_GET);
 if ($result->isAuthenticated()) {
     $user = $result->user();
     $token = $result->token();
-    
+
     // User is authenticated! Save credentials or login session.
     echo "Welcome back, " . $user->name();
 } else {
