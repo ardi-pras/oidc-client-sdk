@@ -1,18 +1,30 @@
 <?php
 
-return [
-    'client_id' => 'barcodeaset',
-    'client_secret' => 'barcodeaset09213',
-    'redirect_uri' => 'https://barcodeaset.unisayogya.ac.id/sso-login',
-    'authorization_endpoint' => 'https://service.unisayogya.ac.id/sso/authorize.php',
-    'token_endpoint' => 'https://service.unisayogya.ac.id/sso/token.php',
-    'userinfo_endpoint' => 'https://service.unisayogya.ac.id/sso/userinfo.php',
-    'jwks_uri' => 'https://service.unisayogya.ac.id/sso/jwks.php',
-    'logout_endpoint' => 'https://service.unisayogya.ac.id/sso/logout.php',
-    'scope' => [
-        'openid',
-        'profile',
-        'email'
-    ]
+$envFile = __DIR__ . '/.env';
+$env = [];
 
+if (is_file($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (str_starts_with($line, '#')) {
+            continue;
+        }
+
+        [$name, $value] = array_pad(explode('=', $line, 2), 2, '');
+        $env[trim($name)] = trim($value);
+    }
+}
+
+$scopes = array_filter(array_map('trim', explode(',', $env['SCOPE'] ?? 'openid,profile,email')));
+
+return [
+    'client_id' => $env['CLIENT_ID'] ?? '',
+    'client_secret' => $env['CLIENT_SECRET'] ?? '',
+    'redirect_uri' => $env['REDIRECT_URI'] ?? '',
+    'authorization_endpoint' => $env['AUTHORIZATION_ENDPOINT'] ?? '',
+    'token_endpoint' => $env['TOKEN_ENDPOINT'] ?? '',
+    'userinfo_endpoint' => $env['USERINFO_ENDPOINT'] ?? '',
+    'jwks_uri' => $env['JWKS_URI'] ?? '',
+    'logout_endpoint' => $env['LOGOUT_ENDPOINT'] ?? '',
+    'scope' => $scopes,
 ];
