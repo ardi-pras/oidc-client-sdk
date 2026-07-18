@@ -2,11 +2,11 @@
     "name": "oidc-client/sdk",
     "description": "Framework Agnostic OpenID Connect Client SDK",
     "version": "1.0.1",
+    "type": "library",
     "license": "MIT",
 
     "require": {
-        "php": "^8.1",
-        "composer-plugin-api": "^2.0"
+        "php": "^8.1"
     },
 
     "autoload": {
@@ -15,9 +15,6 @@
             "OidcClient\\Composer\\": "src/Composer/"
         }
     },
-
-    "type": "composer-plugin",
-
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
