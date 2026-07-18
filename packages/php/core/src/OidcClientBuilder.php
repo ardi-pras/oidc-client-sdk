@@ -64,9 +64,9 @@ final class OidcClientBuilder
         $this->userinfoEndpoint = $config['userinfo_endpoint'] ?? null;
         $this->jwksUri = $config['jwks_uri'] ?? null;
         $this->logoutEndpoint = $config['logout_endpoint'] ?? null;
-        $this->clientId = $config['client_id'];
-        $this->clientSecret = $config['client_secret'];
-        $this->redirectUri = $config['redirect_uri'];
+        $this->clientId = $config['client_id'] ?? '';
+        $this->clientSecret = $config['client_secret'] ?? '';
+        $this->redirectUri = $config['redirect_uri'] ?? '';
         $this->scopes = $config['scope'] ?? [
             'openid',
             'profile',
