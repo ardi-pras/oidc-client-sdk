@@ -8,7 +8,7 @@ final class OidcConfiguration
 {
     public function __construct(
 
-        private readonly ?string $issuer,
+        private readonly ?string $issuer = null,
 
         private readonly string $clientId,
 
