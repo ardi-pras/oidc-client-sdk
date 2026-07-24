@@ -9,12 +9,24 @@ use OidcClient\Domain\User\User;
 
 final class AuthenticationResult
 {
+    private $authenticated;
+
+    private $user;
+
+    private $token;
+
+    private $error;
+
     private function __construct(
-        private readonly bool $authenticated,
-        private readonly ?User $user = null,
-        private readonly ?Token $token = null,
-        private readonly ?string $error = null
+        bool $authenticated,
+        ?User $user = null,
+        ?Token $token = null,
+        ?string $error = null
     ) {
+        $this->authenticated = $authenticated;
+        $this->user = $user;
+        $this->token = $token;
+        $this->error = $error;
     }
 
     public static function success(
@@ -22,9 +34,9 @@ final class AuthenticationResult
         Token $token
     ): self {
         return new self(
-            authenticated: true,
-            user: $user,
-            token: $token
+            true,
+            $user,
+            $token
         );
     }
 
@@ -32,8 +44,10 @@ final class AuthenticationResult
         string $message
     ): self {
         return new self(
-            authenticated: false,
-            error: $message
+            false,
+            null,
+            null,
+            $message
         );
     }
 

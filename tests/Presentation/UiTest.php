@@ -28,19 +28,19 @@ final class UiTest extends TestCase
         $this->user = new User($claims);
 
         $this->token = new Token(
-            accessToken: 'sample-access-token',
-            refreshToken: 'sample-refresh-token',
-            idToken: 'sample-id-token',
-            expiresAt: time() + 3600,
-            tokenType: TokenType::Bearer,
-            scope: 'openid profile email'
+            'sample-access-token',
+            'sample-refresh-token',
+            'sample-id-token',
+            time() + 3600,
+            TokenType::Bearer,
+            'openid profile email'
         );
     }
 
     public function testLoginButtonHtml(): void
     {
         $html = Ui::loginButton('https://sso.company.com/login');
-        
+
         $this->assertStringContainsString('Sign in with SSO', $html);
         $this->assertStringContainsString('https://sso.company.com/login', $html);
     }
@@ -48,7 +48,7 @@ final class UiTest extends TestCase
     public function testUserProfileCardHtml(): void
     {
         $html = Ui::userProfileCard($this->user, 'https://sso.company.com/logout');
-        
+
         $this->assertStringContainsString('John Doe', $html);
         $this->assertStringContainsString('john.doe@company.com', $html);
         $this->assertStringContainsString('admin', $html);
@@ -60,7 +60,7 @@ final class UiTest extends TestCase
     public function testDebugDashboardHtml(): void
     {
         $html = Ui::debugDashboard($this->user, $this->token);
-        
+
         $this->assertStringContainsString('OIDC SSO Developer Dashboard', $html);
         $this->assertStringContainsString('sample-access-token', $html);
         $this->assertStringContainsString('sample-id-token', $html);

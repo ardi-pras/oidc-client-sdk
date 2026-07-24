@@ -19,20 +19,20 @@ final class JwtDecoder
             throw new InvalidArgumentException('Invalid JWT format.');
         }
 
-        [$headerPart, $payloadPart, $signaturePart] = $parts;
+        list($headerPart, $payloadPart, $signaturePart) = $parts;
 
         $header = $this->decodeJson($headerPart);
         $payload = $this->decodeJson($payloadPart);
 
         return new DecodedJwt(
-            header: new JwtHeader(
-                alg: $header['alg'] ?? '',
-                typ: $header['typ'] ?? 'JWT',
-                kid: $header['kid'] ?? null
+            new JwtHeader(
+                $header['alg'] ?? '',
+                $header['typ'] ?? 'JWT',
+                $header['kid'] ?? null
             ),
-            payload: new JwtPayload($payload),
-            signature: $signaturePart,
-            signingInput: $headerPart . '.' . $payloadPart
+            new JwtPayload($payload),
+            $signaturePart,
+            $headerPart . '.' . $payloadPart
         );
     }
 

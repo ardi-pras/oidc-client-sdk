@@ -6,12 +6,14 @@ namespace OidcClient\Domain\Jwt;
 
 final class JwkSet
 {
+    private $keys;
+
     /**
      * @param Jwk[] $keys
      */
-    public function __construct(
-        private readonly array $keys
-    ) {
+    public function __construct(array $keys)
+    {
+        $this->keys = $keys;
     }
 
     /**

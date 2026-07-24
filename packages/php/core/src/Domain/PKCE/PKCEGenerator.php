@@ -55,8 +55,8 @@ final class PKCEGenerator
         );
 
         return new PKCEPair(
-            verifier: $verifier,
-            challenge: $challenge
+            $verifier,
+            $challenge
         );
 
     }

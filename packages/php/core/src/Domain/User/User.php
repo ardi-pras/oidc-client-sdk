@@ -8,9 +8,12 @@ use InvalidArgumentException;
 
 final class User
 {
-    public function __construct(
-        private readonly Claims $claims
-    ) {
+    private $claims;
+
+    public function __construct(Claims $claims)
+    {
+        $this->claims = $claims;
+
         if ($claims->subject() === null) {
             throw new InvalidArgumentException(
                 'User subject (sub) is required.'
@@ -71,8 +74,8 @@ final class User
      */
     public function claim(
         string $key,
-        mixed $default = null
-    ): mixed {
+        $default = null
+    ) {
         return $this->claims->get(
             $key,
             $default

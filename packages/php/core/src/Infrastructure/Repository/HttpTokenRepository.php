@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OidcClient\Infrastructure\Repository;
 
+use InvalidArgumentException;
 use OidcClient\Contracts\Http\HttpClientInterface;
 use OidcClient\Contracts\Repository\TokenRepositoryInterface;
 use OidcClient\Domain\Authentication\AuthorizationContext;
@@ -14,10 +15,11 @@ use RuntimeException;
 
 final class HttpTokenRepository implements TokenRepositoryInterface
 {
+    private $http;
 
-    public function __construct(
-        private readonly HttpClientInterface $http
-    ) {
+    public function __construct(HttpClientInterface $http)
+    {
+        $this->http = $http;
     }
 
     /**
@@ -179,7 +181,7 @@ final class HttpTokenRepository implements TokenRepositoryInterface
      * Convert response token menjadi Domain Token
      */
     private function createToken(
-        mixed $result
+        $result
     ): Token {
 
 
@@ -255,7 +257,7 @@ final class HttpTokenRepository implements TokenRepositoryInterface
 
             tokenType:
             isset($result['token_type'])
-            ? (\OidcClient\Domain\Token\TokenType::tryFrom(ucfirst(strtolower($result['token_type']))) ?? \OidcClient\Domain\Token\TokenType::Bearer)
+            ? $this->normalizeTokenType($result['token_type'])
             : \OidcClient\Domain\Token\TokenType::Bearer,
 
 
@@ -266,6 +268,19 @@ final class HttpTokenRepository implements TokenRepositoryInterface
 
         );
 
+    }
+
+    private function normalizeTokenType($value)
+    {
+        if (!is_string($value)) {
+            return \OidcClient\Domain\Token\TokenType::Bearer;
+        }
+
+        try {
+            return \OidcClient\Domain\Token\TokenType::fromValue(ucfirst(strtolower($value)));
+        } catch (InvalidArgumentException $exception) {
+            return \OidcClient\Domain\Token\TokenType::Bearer;
+        }
     }
 
 }

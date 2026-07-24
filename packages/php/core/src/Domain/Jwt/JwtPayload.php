@@ -6,11 +6,12 @@ namespace OidcClient\Domain\Jwt;
 
 final class JwtPayload
 {
-    public function __construct(
+    private $claims;
 
-        private readonly array $claims
-
-    ) {}
+    public function __construct(array $claims)
+    {
+        $this->claims = $claims;
+    }
 
     public function issuer(): ?string
     {
@@ -22,7 +23,7 @@ final class JwtPayload
         return $this->claims["sub"] ?? null;
     }
 
-    public function audience(): mixed
+    public function audience()
     {
         return $this->claims["aud"] ?? null;
     }
@@ -47,7 +48,7 @@ final class JwtPayload
         return $this->claims;
     }
 
-    public function claim(string $name): mixed
+    public function claim(string $name)
     {
         return $this->claims[$name] ?? null;
     }

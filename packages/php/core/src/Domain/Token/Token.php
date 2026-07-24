@@ -8,19 +8,40 @@ use InvalidArgumentException;
 
 final class Token
 {
+    private $accessToken;
+
+    private $refreshToken;
+
+    private $idToken;
+
+    private $expiresAt;
+
+    private $tokenType;
+
+    private $scope;
+
     public function __construct(
-        private readonly string $accessToken,
-        private readonly ?string $refreshToken = null,
-        private readonly ?string $idToken = null,
-        private readonly ?int $expiresAt = null,
-        private readonly TokenType $tokenType = TokenType::Bearer,
-        private readonly ?string $scope = null
+        string $accessToken,
+        ?string $refreshToken = null,
+        ?string $idToken = null,
+        ?int $expiresAt = null,
+        $tokenType = null,
+        ?string $scope = null
     ) {
         if ($accessToken === '') {
             throw new InvalidArgumentException(
                 'Access token cannot be empty.'
             );
         }
+
+        $this->accessToken = $accessToken;
+        $this->refreshToken = $refreshToken;
+        $this->idToken = $idToken;
+        $this->expiresAt = $expiresAt;
+        $this->tokenType = $tokenType instanceof TokenType
+            ? $tokenType
+            : TokenType::fromValue($tokenType ?: TokenType::Bearer);
+        $this->scope = $scope;
     }
 
     public function accessToken(): string
@@ -85,7 +106,7 @@ final class Token
     {
         return sprintf(
             '%s %s',
-            $this->tokenType->value,
+            $this->tokenType->value(),
             $this->accessToken
         );
     }
@@ -101,12 +122,12 @@ final class Token
     public function withExpiresAt(int $expiresAt): self
     {
         return new self(
-            accessToken: $this->accessToken,
-            refreshToken: $this->refreshToken,
-            idToken: $this->idToken,
-            expiresAt: $expiresAt,
-            tokenType: $this->tokenType,
-            scope: $this->scope
+            $this->accessToken,
+            $this->refreshToken,
+            $this->idToken,
+            $expiresAt,
+            $this->tokenType,
+            $this->scope
         );
     }
 }

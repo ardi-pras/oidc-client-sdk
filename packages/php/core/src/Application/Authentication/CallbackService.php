@@ -12,12 +12,24 @@ use OidcClient\Domain\Authentication\AuthorizationResponse;
 
 final class CallbackService
 {
+    private $config;
+
+    private $storage;
+
+    private $tokenRepository;
+
+    private $userRepository;
+
     public function __construct(
-        private readonly OidcConfiguration $config,
-        private readonly AuthorizationContextStorage $storage,
-        private readonly TokenRepositoryInterface $tokenRepository,
-        private readonly UserRepositoryInterface $userRepository
+        OidcConfiguration $config,
+        AuthorizationContextStorage $storage,
+        TokenRepositoryInterface $tokenRepository,
+        UserRepositoryInterface $userRepository
     ) {
+        $this->config = $config;
+        $this->storage = $storage;
+        $this->tokenRepository = $tokenRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function handle(

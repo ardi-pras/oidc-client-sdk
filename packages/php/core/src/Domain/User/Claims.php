@@ -11,12 +11,14 @@ use Traversable;
 
 final class Claims implements IteratorAggregate, JsonSerializable
 {
+    private $claims;
+
     /**
      * @param array<string,mixed> $claims
      */
-    public function __construct(
-        private readonly array $claims
-    ) {
+    public function __construct(array $claims)
+    {
+        $this->claims = $claims;
     }
 
     /**
@@ -34,8 +36,8 @@ final class Claims implements IteratorAggregate, JsonSerializable
      */
     public function get(
         string $key,
-        mixed $default = null
-    ): mixed {
+        $default = null
+    ) {
         return $this->claims[$key] ?? $default;
     }
 
@@ -60,7 +62,7 @@ final class Claims implements IteratorAggregate, JsonSerializable
         return $this->get('iss');
     }
 
-    public function audience(): string|array|null
+    public function audience()
     {
         return $this->get('aud');
     }

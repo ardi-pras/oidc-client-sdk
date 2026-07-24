@@ -8,14 +8,32 @@ use OidcClient\Domain\PKCE\PKCEPair;
 
 final class AuthorizationRequest
 {
+    private $clientId;
+
+    private $redirectUri;
+
+    private $scope;
+
+    private $state;
+
+    private $pkce;
+
+    private $additionalParameters;
+
     public function __construct(
-        private readonly string $clientId,
-        private readonly string $redirectUri,
-        private readonly string $scope,
-        private readonly string $state,
-        private readonly PKCEPair $pkce,
-        private readonly array $additionalParameters = []
+        string $clientId,
+        string $redirectUri,
+        string $scope,
+        string $state,
+        PKCEPair $pkce,
+        array $additionalParameters = []
     ) {
+        $this->clientId = $clientId;
+        $this->redirectUri = $redirectUri;
+        $this->scope = $scope;
+        $this->state = $state;
+        $this->pkce = $pkce;
+        $this->additionalParameters = $additionalParameters;
     }
 
     public function clientId(): string

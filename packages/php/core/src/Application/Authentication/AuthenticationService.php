@@ -19,17 +19,44 @@ use OidcClient\Application\Jwt\SignatureVerifier;
 
 final class AuthenticationService
 {
+    private $config;
+
+    private $authorization;
+
+    private $tokenService;
+
+    private $jwtDecoder;
+
+    private $validator;
+
+    private $mapper;
+
+    private $session;
+
+    private $jwksService;
+
+    private $signatureVerifier;
+
     public function __construct(
-        private readonly OidcConfiguration $config,
-        private readonly AuthorizationService $authorization,
-        private readonly TokenService $tokenService,
-        private readonly JwtDecoder $jwtDecoder,
-        private readonly IdTokenValidator $validator,
-        private readonly UserMapper $mapper,
-        private readonly SessionStorageInterface $session,
-        private readonly ?JwksService $jwksService = null,
-        private readonly ?SignatureVerifier $signatureVerifier = null
+        OidcConfiguration $config,
+        AuthorizationService $authorization,
+        TokenService $tokenService,
+        JwtDecoder $jwtDecoder,
+        IdTokenValidator $validator,
+        UserMapper $mapper,
+        SessionStorageInterface $session,
+        ?JwksService $jwksService = null,
+        ?SignatureVerifier $signatureVerifier = null
     ) {
+        $this->config = $config;
+        $this->authorization = $authorization;
+        $this->tokenService = $tokenService;
+        $this->jwtDecoder = $jwtDecoder;
+        $this->validator = $validator;
+        $this->mapper = $mapper;
+        $this->session = $session;
+        $this->jwksService = $jwksService;
+        $this->signatureVerifier = $signatureVerifier;
     }
 
     public function beginAuthentication(): string

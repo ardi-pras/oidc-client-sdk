@@ -8,12 +8,14 @@ use OidcClient\Domain\Jwt\DecodedJwt;
 
 final class IdTokenValidator
 {
+    private $rules;
+
     /**
      * @param JwtRuleInterface[] $rules
      */
-    public function __construct(
-        private readonly array $rules
-    ) {
+    public function __construct(array $rules)
+    {
+        $this->rules = $rules;
     }
 
     public function validate(

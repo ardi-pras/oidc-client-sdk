@@ -17,18 +17,33 @@ use OidcClient\Domain\Token\Token;
 
 final class OidcClient
 {
-    private ?User $user = null;
+    private $user;
+
+    private $configuration;
+
+    private $authorization;
+
+    private $authentication;
+
+    private $session;
+
+    private $tokenService;
 
     public function __construct(
-        private readonly OidcConfiguration $configuration,
-        private readonly AuthorizationService $authorization,
-        private readonly AuthenticationService $authentication,
-        private readonly SessionStorageInterface $session,
-        private readonly TokenService $tokenService
+        OidcConfiguration $configuration,
+        AuthorizationService $authorization,
+        AuthenticationService $authentication,
+        SessionStorageInterface $session,
+        TokenService $tokenService
     ) {
+        $this->configuration = $configuration;
+        $this->authorization = $authorization;
+        $this->authentication = $authentication;
+        $this->session = $session;
+        $this->tokenService = $tokenService;
     }
 
-    public function login(): never
+    public function login(): void
     {
         header(
             'Location: ' . $this->authorization->buildAuthorizationUrl()

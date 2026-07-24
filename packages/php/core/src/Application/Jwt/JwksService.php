@@ -9,9 +9,11 @@ use OidcClient\Infrastructure\Repository\HttpJwksRepository;
 
 final class JwksService
 {
-    public function __construct(
-        private readonly HttpJwksRepository $repository
-    ) {
+    private $repository;
+
+    public function __construct(HttpJwksRepository $repository)
+    {
+        $this->repository = $repository;
     }
 
     public function getJwks(string $jwksUri): JwkSet

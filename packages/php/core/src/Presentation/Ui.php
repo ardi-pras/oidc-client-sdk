@@ -26,7 +26,7 @@ final class Ui
     .oidc-mono {
         font-family: 'JetBrains Mono', 'Fira Code', monospace;
     }
-    
+
     /* Variables */
     :root {
         --oidc-primary: #3b82f6;
@@ -263,7 +263,7 @@ final class Ui
         font-weight: 500;
         word-break: break-all;
     }
-    
+
     /* Token Box and Collapsible styles */
     .oidc-collapsible {
         border: 1px solid var(--oidc-border-dark);
@@ -335,7 +335,7 @@ final class Ui
     .oidc-btn-copy.success {
         color: var(--oidc-success);
     }
-    
+
     /* JSON claim list viewer */
     .oidc-json-tree {
         font-size: 13px;
@@ -372,7 +372,7 @@ HTML;
         $styles = self::getFontsAndStyles();
         $name = htmlspecialchars($user->name() ?? $user->username() ?? 'OIDC User');
         $email = htmlspecialchars($user->email() ?? 'No email address');
-        
+
         // Grab initials
         $initials = '';
         $words = explode(' ', $name);
@@ -393,7 +393,7 @@ HTML;
 
         $rolesHtml = '';
         foreach ($roles as $role) {
-            $rolesHtml .= '<span class="oidc-badge">' . htmlspecialchars((string)$role) . '</span>';
+            $rolesHtml .= '<span class="oidc-badge">' . htmlspecialchars((string) $role) . '</span>';
         }
 
         $rolesContainer = '';
@@ -412,9 +412,9 @@ HTML;
                 <p class="oidc-user-email">{$email}</p>
             </div>
         </div>
-        
+
         {$rolesContainer}
-        
+
         <a href="{$logoutUrl}" class="oidc-logout-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -431,7 +431,7 @@ HTML;
     public static function debugDashboard(User $user, Token $token, string $theme = 'dark'): string
     {
         $styles = self::getFontsAndStyles();
-        
+
         $name = htmlspecialchars($user->name() ?? $user->username() ?? 'OIDC User');
         $email = htmlspecialchars($user->email() ?? 'No email address');
         $subject = htmlspecialchars($user->id());
@@ -439,7 +439,7 @@ HTML;
         $accessToken = htmlspecialchars($token->accessToken());
         $idToken = htmlspecialchars($token->idToken() ?? 'None');
         $refreshToken = htmlspecialchars($token->refreshToken() ?? 'None');
-        $tokenType = htmlspecialchars($token->tokenType()->value);
+        $tokenType = htmlspecialchars($token->tokenType()->value());
         $expiresIn = $token->expiresIn() ?? 0;
         $expiresAt = $token->expiresAt() ? date('Y-m-d H:i:s', $token->expiresAt()) : 'Never';
         $scopes = htmlspecialchars($token->scope() ?? 'None');
@@ -483,12 +483,12 @@ HTML;
             <!-- Left Pane: Session & Token Status -->
             <div class="oidc-pane">
                 <h4 class="oidc-pane-title">Session Details</h4>
-                
+
                 <div class="oidc-field">
                     <span class="oidc-field-label">Subject (Sub)</span>
                     <span class="oidc-field-value oidc-mono">{$subject}</span>
                 </div>
-                
+
                 <div class="oidc-field">
                     <span class="oidc-field-label">User Name</span>
                     <span class="oidc-field-value">{$name}</span>

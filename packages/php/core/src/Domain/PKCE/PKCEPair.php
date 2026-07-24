@@ -8,16 +8,20 @@ use InvalidArgumentException;
 
 final class PKCEPair
 {
+    private $verifier;
+
+    private $challenge;
+
+    private $method;
 
     public function __construct(
-
-        private readonly string $verifier,
-
-        private readonly string $challenge,
-
-        private readonly string $method = 'S256'
-
+        string $verifier,
+        string $challenge,
+        string $method = 'S256'
     ) {
+        $this->verifier = $verifier;
+        $this->challenge = $challenge;
+        $this->method = $method;
 
 
         $this->validateVerifier(

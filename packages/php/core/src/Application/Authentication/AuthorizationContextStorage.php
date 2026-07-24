@@ -11,9 +11,12 @@ final class AuthorizationContextStorage
 {
     private const SESSION_KEY = 'oidc.authorization';
 
+    private $storage;
+
     public function __construct(
-        private readonly SessionStorageInterface $storage
+        SessionStorageInterface $storage
     ) {
+        $this->storage = $storage;
     }
 
     public function save(

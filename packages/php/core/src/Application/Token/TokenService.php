@@ -12,10 +12,12 @@ use RuntimeException;
 
 final class TokenService
 {
+    private $repository;
 
     public function __construct(
-        private readonly TokenRepositoryInterface $repository
+        TokenRepositoryInterface $repository
     ) {
+        $this->repository = $repository;
     }
 
     public function exchangeAuthorizationCode(
@@ -27,7 +29,7 @@ final class TokenService
 
             throw new RuntimeException(
                 $response->errorDescription()
-                    ?? 'Authorization failed.'
+                ?? 'Authorization failed.'
             );
 
         }

@@ -19,7 +19,7 @@ final class SignatureVerifierTest extends TestCase
             "private_key_bits" => 2048,
             "private_key_type" => OPENSSL_KEYTYPE_RSA,
         ];
-        
+
         $privateKey = openssl_pkey_new($config);
         if ($privateKey === false) {
             $this->markTestSkipped('OpenSSL private key could not be generated. Check openssl.cnf path.');
@@ -53,17 +53,17 @@ final class SignatureVerifierTest extends TestCase
         $decoded = $decoder->decode($jwt);
 
         $jwk = new Jwk(
-            kid: 'key-1',
-            kty: 'RSA',
-            alg: 'RS256',
-            use: 'sig',
-            n: $n,
-            e: $e
+            'key-1',
+            'RSA',
+            'RS256',
+            'sig',
+            $n,
+            $e
         );
         $jwks = new JwkSet([$jwk]);
 
         $verifier = new SignatureVerifier();
-        
+
         $this->expectNotToPerformAssertions();
         $verifier->verify($decoded, $jwks);
     }

@@ -8,14 +8,17 @@ use InvalidArgumentException;
 
 final class Endpoint
 {
-    public function __construct(
-        private readonly string $url
-    ) {
+    private $url;
+
+    public function __construct(string $url)
+    {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new InvalidArgumentException(
                 sprintf('Invalid endpoint URL: %s', $url)
             );
         }
+
+        $this->url = $url;
     }
 
     /**

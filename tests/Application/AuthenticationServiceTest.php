@@ -30,14 +30,14 @@ use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
 final class InMemorySessionStorage implements SessionStorageInterface
 {
-    private array $data = [];
+    private $data = [];
 
-    public function set(string $key, mixed $value): void
+    public function set(string $key, $value): void
     {
         $this->data[$key] = $value;
     }
 
-    public function get(string $key, mixed $default = null): mixed
+    public function get(string $key, $default = null)
     {
         return $this->data[$key] ?? $default;
     }
@@ -58,11 +58,10 @@ final class InMemorySessionStorage implements SessionStorageInterface
     }
 }
 
-#[AllowMockObjectsWithoutExpectations]
 final class AuthenticationServiceTest extends TestCase
 {
-    private InMemorySessionStorage $session;
-    private OidcConfiguration $config;
+    private $session;
+    private $config;
     private $tokenRepositoryMock;
     private $httpClientMock;
 
@@ -70,16 +69,16 @@ final class AuthenticationServiceTest extends TestCase
     {
         $this->session = new InMemorySessionStorage();
         $this->config = new OidcConfiguration(
-            issuer: 'https://sso.company.com',
-            clientId: 'client-1',
-            clientSecret: 'secret-1',
-            redirectUri: 'https://client.com/callback',
-            scopes: ['openid', 'profile'],
-            authorizationEndpoint: 'https://sso.company.com/authorize',
-            tokenEndpoint: 'https://sso.company.com/token',
-            userinfoEndpoint: 'https://sso.company.com/userinfo',
-            jwksUri: 'https://sso.company.com/jwks',
-            logoutEndpoint: 'https://sso.company.com/logout'
+            'https://sso.company.com',
+            'client-1',
+            'secret-1',
+            'https://client.com/callback',
+            ['openid', 'profile'],
+            'https://sso.company.com/authorize',
+            'https://sso.company.com/token',
+            'https://sso.company.com/userinfo',
+            'https://sso.company.com/jwks',
+            'https://sso.company.com/logout'
         );
 
         $this->tokenRepositoryMock = $this->createMock(TokenRepositoryInterface::class);
@@ -145,11 +144,11 @@ final class AuthenticationServiceTest extends TestCase
 
         // 4. Mock token repository response
         $tokenResponse = new Token(
-            accessToken: 'access-token-123',
-            refreshToken: 'refresh-token-123',
-            idToken: $jwt,
-            expiresAt: time() + 3600,
-            tokenType: TokenType::Bearer
+            'access-token-123',
+            'refresh-token-123',
+            $jwt,
+            time() + 3600,
+            TokenType::Bearer
         );
 
         $this->tokenRepositoryMock->method('exchangeAuthorizationCode')
@@ -200,8 +199,8 @@ final class AuthenticationServiceTest extends TestCase
         );
 
         $response = new AuthorizationResponse(
-            code: 'auth-code-123',
-            state: $state
+            'auth-code-123',
+            $state
         );
 
         $result = $authService->authenticate($response);
@@ -235,8 +234,8 @@ final class AuthenticationServiceTest extends TestCase
 
         // AuthorizationResponse with mismatched state
         $response = new AuthorizationResponse(
-            code: 'auth-code-123',
-            state: 'mismatched-state'
+            'auth-code-123',
+            'mismatched-state'
         );
 
         $result = $authService->authenticate($response);
@@ -257,11 +256,11 @@ final class AuthenticationServiceTest extends TestCase
         $jwt = $this->createJwt('mismatched-nonce', null);
 
         $tokenResponse = new Token(
-            accessToken: 'access-token-123',
-            refreshToken: 'refresh-token-123',
-            idToken: $jwt,
-            expiresAt: time() + 3600,
-            tokenType: TokenType::Bearer
+            'access-token-123',
+            'refresh-token-123',
+            $jwt,
+            time() + 3600,
+            TokenType::Bearer
         );
 
         $this->tokenRepositoryMock->method('exchangeAuthorizationCode')
@@ -284,8 +283,8 @@ final class AuthenticationServiceTest extends TestCase
         );
 
         $response = new AuthorizationResponse(
-            code: 'auth-code-123',
-            state: $state
+            'auth-code-123',
+            $state
         );
 
         $result = $authService->authenticate($response);

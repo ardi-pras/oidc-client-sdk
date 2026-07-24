@@ -6,30 +6,52 @@ namespace OidcClient\Config;
 
 final class OidcConfiguration
 {
+    private $issuer;
+
+    private $clientId;
+
+    private $clientSecret;
+
+    private $redirectUri;
+
+    private $scopes;
+
+    private $authorizationEndpoint;
+
+    private $tokenEndpoint;
+
+    private $userinfoEndpoint;
+
+    private $jwksUri;
+
+    private $logoutEndpoint;
+
+    private $verifyTls;
+
     public function __construct(
-
-        private readonly ?string $issuer = null,
-
-        private readonly string $clientId,
-
-        private readonly string $clientSecret,
-
-        private readonly string $redirectUri,
-
-        private readonly array $scopes,
-
-        private readonly ?string $authorizationEndpoint = null,
-
-        private readonly ?string $tokenEndpoint = null,
-
-        private readonly ?string $userinfoEndpoint = null,
-
-        private readonly ?string $jwksUri = null,
-
-        private readonly ?string $logoutEndpoint = null,
-
-        private readonly bool $verifyTls = true,
+        ?string $issuer = null,
+        string $clientId,
+        string $clientSecret,
+        string $redirectUri,
+        array $scopes,
+        ?string $authorizationEndpoint = null,
+        ?string $tokenEndpoint = null,
+        ?string $userinfoEndpoint = null,
+        ?string $jwksUri = null,
+        ?string $logoutEndpoint = null,
+        bool $verifyTls = true
     ) {
+        $this->issuer = $issuer;
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->redirectUri = $redirectUri;
+        $this->scopes = $scopes;
+        $this->authorizationEndpoint = $authorizationEndpoint;
+        $this->tokenEndpoint = $tokenEndpoint;
+        $this->userinfoEndpoint = $userinfoEndpoint;
+        $this->jwksUri = $jwksUri;
+        $this->logoutEndpoint = $logoutEndpoint;
+        $this->verifyTls = $verifyTls;
     }
 
     public function issuer(): ?string
@@ -90,17 +112,17 @@ final class OidcConfiguration
     public function withTlsVerification(bool $verify): self
     {
         return new self(
-            issuer: $this->issuer,
-            clientId: $this->clientId,
-            clientSecret: $this->clientSecret,
-            redirectUri: $this->redirectUri,
-            scopes: $this->scopes,
-            authorizationEndpoint: $this->authorizationEndpoint,
-            tokenEndpoint: $this->tokenEndpoint,
-            userinfoEndpoint: $this->userinfoEndpoint,
-            jwksUri: $this->jwksUri,
-            logoutEndpoint: $this->logoutEndpoint,
-            verifyTls: $verify
+            $this->issuer,
+            $this->clientId,
+            $this->clientSecret,
+            $this->redirectUri,
+            $this->scopes,
+            $this->authorizationEndpoint,
+            $this->tokenEndpoint,
+            $this->userinfoEndpoint,
+            $this->jwksUri,
+            $this->logoutEndpoint,
+            $verify
         );
     }
 
@@ -112,17 +134,17 @@ final class OidcConfiguration
         ?string $logoutEndpoint = null
     ): self {
         return new self(
-            issuer: $this->issuer,
-            clientId: $this->clientId,
-            clientSecret: $this->clientSecret,
-            redirectUri: $this->redirectUri,
-            scopes: $this->scopes,
-            authorizationEndpoint: $authorizationEndpoint,
-            tokenEndpoint: $tokenEndpoint,
-            userinfoEndpoint: $userinfoEndpoint,
-            jwksUri: $jwksUri,
-            logoutEndpoint: $logoutEndpoint,
-            verifyTls: $this->verifyTls
+            $this->issuer,
+            $this->clientId,
+            $this->clientSecret,
+            $this->redirectUri,
+            $this->scopes,
+            $authorizationEndpoint,
+            $tokenEndpoint,
+            $userinfoEndpoint,
+            $jwksUri,
+            $logoutEndpoint,
+            $this->verifyTls
         );
     }
 }

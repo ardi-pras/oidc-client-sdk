@@ -6,12 +6,24 @@ namespace OidcClient\Domain\Jwt;
 
 final class DecodedJwt
 {
+    private $header;
+
+    private $payload;
+
+    private $signature;
+
+    private $signingInput;
+
     public function __construct(
-        private readonly JwtHeader $header,
-        private readonly JwtPayload $payload,
-        private readonly string $signature,
-        private readonly string $signingInput
+        JwtHeader $header,
+        JwtPayload $payload,
+        string $signature,
+        string $signingInput
     ) {
+        $this->header = $header;
+        $this->payload = $payload;
+        $this->signature = $signature;
+        $this->signingInput = $signingInput;
     }
 
     public function header(): JwtHeader

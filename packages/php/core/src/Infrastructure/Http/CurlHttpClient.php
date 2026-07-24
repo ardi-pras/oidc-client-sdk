@@ -11,11 +11,20 @@ use RuntimeException;
 
 final class CurlHttpClient implements HttpClientInterface
 {
+    private $verifyTls;
+
+    private $timeout;
+
+    private $connectTimeout;
+
     public function __construct(
-        private bool $verifyTls = true,
-        private int $timeout = 30,
-        private int $connectTimeout = 10,
+        $verifyTls = true,
+        $timeout = 30,
+        $connectTimeout = 10
     ) {
+        $this->verifyTls = (bool) $verifyTls;
+        $this->timeout = (int) $timeout;
+        $this->connectTimeout = (int) $connectTimeout;
     }
 
     public function send(
@@ -103,12 +112,12 @@ final class CurlHttpClient implements HttpClientInterface
     ): array {
 
         $request = new HttpRequest(
-            method: 'POST',
-            url: $url,
-            headers: [
+            'POST',
+            $url,
+            [
                 'Content-Type' => 'application/x-www-form-urlencoded'
             ],
-            body: $data
+            $data
         );
 
         $response = $this->send($request);

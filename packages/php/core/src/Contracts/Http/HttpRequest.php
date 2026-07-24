@@ -6,12 +6,24 @@ namespace OidcClient\Contracts\Http;
 
 final class HttpRequest
 {
+    private $method;
+
+    private $url;
+
+    private $headers;
+
+    private $body;
+
     public function __construct(
-        private readonly string $method,
-        private readonly string $url,
-        private readonly array $headers = [],
-        private readonly array $body = []
+        string $method,
+        string $url,
+        array $headers = [],
+        array $body = []
     ) {
+        $this->method = $method;
+        $this->url = $url;
+        $this->headers = $headers;
+        $this->body = $body;
     }
 
     public function method(): string

@@ -23,12 +23,12 @@ final class JwkMapper
         }
 
         return new Jwk(
-            kid: $data['kid'],
-            kty: $data['kty'],
-            alg: $data['alg'],
-            use: $data['use'] ?? 'sig',
-            n: $data['n'],
-            e: $data['e']
+            $data['kid'],
+            $data['kty'],
+            $data['alg'],
+            $data['use'] ?? 'sig',
+            $data['n'],
+            $data['e']
         );
     }
 

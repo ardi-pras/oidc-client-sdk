@@ -10,10 +10,16 @@ use OidcClient\Domain\PKCE\PKCEGenerator;
 
 final class AuthorizationService
 {
+    private $config;
+
+    private $session;
+
     public function __construct(
-        private readonly OidcConfiguration $config,
-        private readonly SessionStorageInterface $session
+        OidcConfiguration $config,
+        SessionStorageInterface $session
     ) {
+        $this->config = $config;
+        $this->session = $session;
     }
 
     public function buildAuthorizationUrl(): string
@@ -34,8 +40,8 @@ final class AuthorizationService
         ]);
 
         return $this->config->authorizationEndpoint()
-            .'?'
-            .http_build_query([
+            . '?'
+            . http_build_query([
                 'client_id' => $this->config->clientId(),
                 'redirect_uri' => $this->config->redirectUri(),
                 'response_type' => 'code',

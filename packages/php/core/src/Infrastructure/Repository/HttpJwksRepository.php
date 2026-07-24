@@ -12,10 +12,14 @@ use RuntimeException;
 
 final class HttpJwksRepository
 {
-    public function __construct(
-        private readonly HttpClientInterface $http,
-        private readonly JwkMapper $mapper = new JwkMapper()
-    ) {
+    private $http;
+
+    private $mapper;
+
+    public function __construct(HttpClientInterface $http, JwkMapper $mapper = null)
+    {
+        $this->http = $http;
+        $this->mapper = $mapper ?: new JwkMapper();
     }
 
     public function getJwks(string $jwksUri): JwkSet

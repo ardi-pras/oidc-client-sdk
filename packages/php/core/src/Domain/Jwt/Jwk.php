@@ -6,14 +6,32 @@ namespace OidcClient\Domain\Jwt;
 
 final class Jwk
 {
+    private $kid;
+
+    private $kty;
+
+    private $alg;
+
+    private $use;
+
+    private $n;
+
+    private $e;
+
     public function __construct(
-        private readonly string $kid,
-        private readonly string $kty,
-        private readonly string $alg,
-        private readonly string $use,
-        private readonly string $n,
-        private readonly string $e
+        string $kid,
+        string $kty,
+        string $alg,
+        string $use,
+        string $n,
+        string $e
     ) {
+        $this->kid = $kid;
+        $this->kty = $kty;
+        $this->alg = $alg;
+        $this->use = $use;
+        $this->n = $n;
+        $this->e = $e;
     }
 
     public function kid(): string

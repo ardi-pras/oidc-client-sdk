@@ -8,13 +8,29 @@ use InvalidArgumentException;
 
 final class AuthorizationResponse
 {
+    private $code;
+
+    private $state;
+
+    private $sessionState;
+
+    private $error;
+
+    private $errorDescription;
+
     public function __construct(
-        private readonly ?string $code,
-        private readonly ?string $state,
-        private readonly ?string $sessionState = null,
-        private readonly ?string $error = null,
-        private readonly ?string $errorDescription = null
+        ?string $code,
+        ?string $state,
+        ?string $sessionState = null,
+        ?string $error = null,
+        ?string $errorDescription = null
     ) {
+        $this->code = $code;
+        $this->state = $state;
+        $this->sessionState = $sessionState;
+        $this->error = $error;
+        $this->errorDescription = $errorDescription;
+
         if ($error === null && $code === null) {
             throw new InvalidArgumentException(
                 'Either authorization code or error must be set.'
@@ -25,11 +41,11 @@ final class AuthorizationResponse
     public static function fromArray(array $query): self
     {
         return new self(
-            code: $query['code'] ?? null,
-            state: $query['state'] ?? null,
-            sessionState: $query['session_state'] ?? null,
-            error: $query['error'] ?? null,
-            errorDescription: $query['error_description'] ?? null
+            $query['code'] ?? null,
+            $query['state'] ?? null,
+            $query['session_state'] ?? null,
+            $query['error'] ?? null,
+            $query['error_description'] ?? null
         );
     }
 

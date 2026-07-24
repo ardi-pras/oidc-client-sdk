@@ -18,15 +18,32 @@ use RuntimeException;
 
 final class CallbackHandler
 {
-    public function __construct(
-        private readonly TokenService $tokenService,
-        private readonly JwtDecoder $jwtDecoder,
-        private readonly IdTokenValidator $validator,
-        private readonly UserMapper $userMapper,
-        private readonly SessionStorageInterface $session
-    ) { }
+    private $tokenService;
 
-    public function handle( AuthorizationResponse $response, AuthorizationContext $context): AuthenticationResult {
+    private $jwtDecoder;
+
+    private $validator;
+
+    private $userMapper;
+
+    private $session;
+
+    public function __construct(
+        TokenService $tokenService,
+        JwtDecoder $jwtDecoder,
+        IdTokenValidator $validator,
+        UserMapper $userMapper,
+        SessionStorageInterface $session
+    ) {
+        $this->tokenService = $tokenService;
+        $this->jwtDecoder = $jwtDecoder;
+        $this->validator = $validator;
+        $this->userMapper = $userMapper;
+        $this->session = $session;
+    }
+
+    public function handle(AuthorizationResponse $response, AuthorizationContext $context): AuthenticationResult
+    {
         try {
             /**
              * 1. Validate OAuth State
@@ -68,8 +85,10 @@ final class CallbackHandler
              */
             $this->session->put('oidc.user', $user);
 
-            $this->session->put( 'oidc.token',
-                [   'access_token' => $token->accessToken(),
+            $this->session->put(
+                'oidc.token',
+                [
+                    'access_token' => $token->accessToken(),
                     'refresh_token' => $token->refreshToken(),
                     'expires_in' => $token->expiresIn(),
                     'token_type' => $token->tokenType()
@@ -84,20 +103,21 @@ final class CallbackHandler
             $this->session->remove('oidc.code_verifier');
 
             return AuthenticationResult::success($user, $token);
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             return AuthenticationResult::failure($e->getMessage());
         }
 
     }
 
-    private function validateState(AuthorizationResponse $response): void {
+    private function validateState(AuthorizationResponse $response): void
+    {
         $expected = $this->session->get('oidc.state');
 
         if ($expected === null) {
             throw new RuntimeException('Missing state.');
         }
 
-        if (!hash_equals($expected,$response->state())) {
+        if (!hash_equals($expected, $response->state())) {
             throw new RuntimeException('Invalid state.');
         }
 

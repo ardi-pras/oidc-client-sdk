@@ -30,31 +30,31 @@ use OidcClient\Infrastructure\Storage\NativeSessionStorage;
 
 final class OidcClientBuilder
 {
-    private ?string $issuer = null;
+    private $issuer = null;
 
-    private ?string $clientId = null;
+    private $clientId = null;
 
-    private ?string $clientSecret = null;
+    private $clientSecret = null;
 
-    private ?string $redirectUri = null;
+    private $redirectUri = null;
 
-    private array $scopes = [
+    private $scopes = [
         'openid',
         'profile',
         'email',
     ];
 
-    private ?string $authorizationEndpoint = null;
+    private $authorizationEndpoint = null;
 
-    private ?string $tokenEndpoint = null;
+    private $tokenEndpoint = null;
 
-    private ?string $userinfoEndpoint = null;
+    private $userinfoEndpoint = null;
 
-    private ?string $jwksUri = null;
+    private $jwksUri = null;
 
-    private ?string $logoutEndpoint = null;
+    private $logoutEndpoint = null;
 
-    private bool $verifyTls = true;
+    private $verifyTls = true;
 
     public function fromArray(array $config): self
     {
@@ -226,22 +226,21 @@ final class OidcClientBuilder
     public function build(): OidcClient
     {
         $config = new OidcConfiguration(
-            issuer: $this->issuer,
-            clientId: $this->clientId,
-            clientSecret: $this->clientSecret,
-            redirectUri: $this->redirectUri,
-            scopes: $this->scopes,
-
-            authorizationEndpoint: $this->authorizationEndpoint,
-            tokenEndpoint: $this->tokenEndpoint,
-            userinfoEndpoint: $this->userinfoEndpoint,
-            jwksUri: $this->jwksUri,
-            logoutEndpoint: $this->logoutEndpoint,
-            verifyTls: $this->verifyTls,
+            $this->issuer,
+            $this->clientId,
+            $this->clientSecret,
+            $this->redirectUri,
+            $this->scopes,
+            $this->authorizationEndpoint,
+            $this->tokenEndpoint,
+            $this->userinfoEndpoint,
+            $this->jwksUri,
+            $this->logoutEndpoint,
+            $this->verifyTls
         );
 
         $httpClient = new CurlHttpClient(
-            verifyTls: $this->verifyTls
+            $this->verifyTls
         );
 
         $this->validateConfiguration($config);

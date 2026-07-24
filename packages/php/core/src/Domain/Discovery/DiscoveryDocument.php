@@ -6,13 +6,28 @@ namespace OidcClient\Domain\Discovery;
 
 final class DiscoveryDocument
 {
+    private $authorizationEndpoint;
+
+    private $tokenEndpoint;
+
+    private $userinfoEndpoint;
+
+    private $jwksUri;
+
+    private $endSessionEndpoint;
+
     public function __construct(
-        private readonly string $authorizationEndpoint,
-        private readonly string $tokenEndpoint,
-        private readonly ?string $userinfoEndpoint,
-        private readonly ?string $jwksUri,
-        private readonly ?string $endSessionEndpoint
+        string $authorizationEndpoint,
+        string $tokenEndpoint,
+        ?string $userinfoEndpoint,
+        ?string $jwksUri,
+        ?string $endSessionEndpoint
     ) {
+        $this->authorizationEndpoint = $authorizationEndpoint;
+        $this->tokenEndpoint = $tokenEndpoint;
+        $this->userinfoEndpoint = $userinfoEndpoint;
+        $this->jwksUri = $jwksUri;
+        $this->endSessionEndpoint = $endSessionEndpoint;
     }
 
     public function authorizationEndpoint(): string

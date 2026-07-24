@@ -9,9 +9,12 @@ use OidcClient\Contracts\Repository\DiscoveryRepositoryInterface;
 
 final class DiscoveryService
 {
+    private $repository;
+
     public function __construct(
-        private readonly DiscoveryRepositoryInterface $repository
+        DiscoveryRepositoryInterface $repository
     ) {
+        $this->repository = $repository;
     }
 
     public function discover(
@@ -26,19 +29,19 @@ final class DiscoveryService
         return $configuration->withEndpoints(
 
             authorizationEndpoint:
-                $metadata->authorizationEndpoint(),
+            $metadata->authorizationEndpoint(),
 
             tokenEndpoint:
-                $metadata->tokenEndpoint(),
+            $metadata->tokenEndpoint(),
 
             userinfoEndpoint:
-                $metadata->userinfoEndpoint(),
+            $metadata->userinfoEndpoint(),
 
             jwksUri:
-                $metadata->jwksUri(),
+            $metadata->jwksUri(),
 
             endSessionEndpoint:
-                $metadata->endSessionEndpoint()
+            $metadata->endSessionEndpoint()
 
         );
     }

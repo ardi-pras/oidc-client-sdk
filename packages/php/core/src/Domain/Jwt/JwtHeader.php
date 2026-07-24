@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 declare(strict_types=1);
 
@@ -6,15 +6,21 @@ namespace OidcClient\Domain\Jwt;
 
 final class JwtHeader
 {
+    private $alg;
+
+    private $typ;
+
+    private $kid;
+
     public function __construct(
-
-        private readonly string $alg,
-
-        private readonly string $typ,
-
-        private readonly ?string $kid
-
-    ) {}
+        string $alg,
+        string $typ,
+        ?string $kid
+    ) {
+        $this->alg = $alg;
+        $this->typ = $typ;
+        $this->kid = $kid;
+    }
 
     public function algorithm(): string
     {

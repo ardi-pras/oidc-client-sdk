@@ -27,8 +27,6 @@ final class TokenMapper
             $expiresAt = time() + (int) $data['expires_in'];
         }
 
-        $tokenType = TokenType::Bearer;
-
         if (
             isset($data['token_type']) &&
             strtolower($data['token_type']) !== 'bearer'
@@ -39,24 +37,12 @@ final class TokenMapper
         }
 
         return new Token(
-
-            accessToken:
-                $data['access_token'],
-
-            refreshToken:
-                $data['refresh_token'] ?? null,
-
-            idToken:
-                $data['id_token'] ?? null,
-
-            expiresAt:
-                $expiresAt,
-
-            tokenType:
-                $tokenType,
-
-            scope:
-                $data['scope'] ?? null
+            $data['access_token'],
+            $data['refresh_token'] ?? null,
+            $data['id_token'] ?? null,
+            $expiresAt,
+            new TokenType(TokenType::Bearer),
+            $data['scope'] ?? null
         );
     }
 }

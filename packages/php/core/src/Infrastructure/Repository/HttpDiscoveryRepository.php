@@ -12,9 +12,11 @@ use RuntimeException;
 
 final class HttpDiscoveryRepository implements DiscoveryRepositoryInterface
 {
-    public function __construct(
-        private readonly HttpClientInterface $http
-    ) {
+    private $http;
+
+    public function __construct(HttpClientInterface $http)
+    {
+        $this->http = $http;
     }
 
     public function discover(
@@ -23,7 +25,7 @@ final class HttpDiscoveryRepository implements DiscoveryRepositoryInterface
 
         $request = new HttpRequest(
             'GET',
-            rtrim($issuer, '/').'/.well-known/openid-configuration'
+            rtrim($issuer, '/') . '/.well-known/openid-configuration'
         );
 
         $response = $this->http->send($request);
@@ -57,13 +59,13 @@ final class HttpDiscoveryRepository implements DiscoveryRepositoryInterface
         }
 
         return new DiscoveryDocument(
-            authorizationEndpoint: $body['authorization_endpoint'],
-            tokenEndpoint: $body['token_endpoint'],
-            userinfoEndpoint: $body['userinfo_endpoint'] ?? null,
-            jwksUri: $body['jwks_uri'],
-            endSessionEndpoint: $body['end_session_endpoint']
-                ?? $body['end_session_endpoint_uri']
-                ?? null
+            $body['authorization_endpoint'],
+            $body['token_endpoint'],
+            $body['userinfo_endpoint'] ?? null,
+            $body['jwks_uri'],
+            $body['end_session_endpoint']
+            ?? $body['end_session_endpoint_uri']
+            ?? null
         );
     }
 }

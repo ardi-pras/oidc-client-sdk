@@ -11,12 +11,24 @@ use OidcClient\Application\Token\TokenService;
 
 final class ClientContext
 {
+    private $configuration;
+
+    private $authentication;
+
+    private $discovery;
+
+    private $token;
+
     public function __construct(
-        private readonly OidcConfiguration $configuration,
-        private readonly AuthenticationService $authentication,
-        private readonly DiscoveryService $discovery,
-        private readonly TokenService $token
+        OidcConfiguration $configuration,
+        AuthenticationService $authentication,
+        DiscoveryService $discovery,
+        TokenService $token
     ) {
+        $this->configuration = $configuration;
+        $this->authentication = $authentication;
+        $this->discovery = $discovery;
+        $this->token = $token;
     }
 
     public function configuration(): OidcConfiguration

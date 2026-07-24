@@ -10,9 +10,12 @@ use RuntimeException;
 
 final class AudienceRule implements JwtRuleInterface
 {
+    private $config;
+
     public function __construct(
-        private readonly OidcConfiguration $config
+        OidcConfiguration $config
     ) {
+        $this->config = $config;
     }
 
     public function validate(

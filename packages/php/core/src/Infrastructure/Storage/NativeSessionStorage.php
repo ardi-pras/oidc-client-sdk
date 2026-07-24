@@ -18,7 +18,7 @@ final class NativeSessionStorage implements SessionStorageInterface
     /**
      * API baru
      */
-    public function set(string $key, mixed $value): void
+    public function set(string $key, $value): void
     {
         $_SESSION[$key] = $value;
     }
@@ -26,15 +26,15 @@ final class NativeSessionStorage implements SessionStorageInterface
     /**
      * Alias API lama
      */
-    public function put(string $key, mixed $value): void
+    public function put(string $key, $value): void
     {
         $this->set($key, $value);
     }
 
     public function get(
         string $key,
-        mixed $default = null
-    ): mixed {
+        $default = null
+    ) {
         return $_SESSION[$key] ?? $default;
     }
 

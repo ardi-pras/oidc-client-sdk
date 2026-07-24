@@ -6,11 +6,20 @@ namespace OidcClient\Contracts\Http;
 
 final class HttpResponse
 {
+    private $statusCode;
+
+    private $body;
+
+    private $headers;
+
     public function __construct(
-        private readonly int $statusCode,
-        private readonly array|string $body,
-        private readonly array $headers = []
+        int $statusCode,
+        $body,
+        array $headers = []
     ) {
+        $this->statusCode = $statusCode;
+        $this->body = $body;
+        $this->headers = $headers;
     }
 
     public function statusCode(): int
@@ -18,7 +27,7 @@ final class HttpResponse
         return $this->statusCode;
     }
 
-    public function body(): array|string
+    public function body()
     {
         return $this->body;
     }

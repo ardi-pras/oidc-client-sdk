@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 use OidcClient\OidcClient;
 
 /**
- * @method static never login()
+ * @method static void login()
  * @method static \OidcClient\Domain\Authentication\AuthenticationResult authenticate(array $query)
  * @method static \OidcClient\Application\Authentication\AuthenticationService authentication()
  * @method static \OidcClient\Domain\User\User|null user()
@@ -16,7 +16,7 @@ use OidcClient\OidcClient;
  * @method static bool isAuthenticated()
  * @method static void logout()
  * @method static \OidcClient\Config\OidcConfiguration configuration()
- * 
+ *
  * @see \OidcClient\OidcClient
  */
 final class OidcFacade extends Facade

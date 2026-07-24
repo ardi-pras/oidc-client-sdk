@@ -10,9 +10,11 @@ use OidcClient\Integration\OidcService;
 
 final class OidcController extends Controller
 {
-    public function __construct(
-        private readonly OidcService $oidcService
-    ) {
+    private $oidcService;
+
+    public function __construct(OidcService $oidcService)
+    {
+        $this->oidcService = $oidcService;
     }
 
     public function login()

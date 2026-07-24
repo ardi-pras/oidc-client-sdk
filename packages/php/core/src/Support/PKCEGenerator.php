@@ -16,9 +16,9 @@ final class PKCEGenerator
 
         return new PKCEPair(
 
-            verifier: $verifier,
+            $verifier,
 
-            challenge: self::challenge($verifier)
+            self::challenge($verifier)
 
         );
     }

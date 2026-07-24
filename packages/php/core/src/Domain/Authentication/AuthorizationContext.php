@@ -11,26 +11,40 @@ use RuntimeException;
 
 final class AuthorizationContext
 {
+    private $pkce;
+
+    private $state;
+
+    private $nonce;
+
+    private $createdAt;
+
+    private $clientId;
+
+    private $redirectUri;
+
+    private $tokenEndpoint;
+
+    private $clientSecret;
 
     public function __construct(
-
-        private readonly PKCEPair $pkce,
-
-        private readonly string $state,
-
-        private readonly string $nonce,
-
-        private readonly int $createdAt,
-
-        private readonly string $clientId,
-
-        private readonly string $redirectUri,
-
-        private readonly string $tokenEndpoint,
-
-        private readonly ?string $clientSecret = null
-
+        PKCEPair $pkce,
+        string $state,
+        string $nonce,
+        int $createdAt,
+        string $clientId,
+        string $redirectUri,
+        string $tokenEndpoint,
+        ?string $clientSecret = null
     ) {
+        $this->pkce = $pkce;
+        $this->state = $state;
+        $this->nonce = $nonce;
+        $this->createdAt = $createdAt;
+        $this->clientId = $clientId;
+        $this->redirectUri = $redirectUri;
+        $this->tokenEndpoint = $tokenEndpoint;
+        $this->clientSecret = $clientSecret;
     }
 
     public static function fromSession(
