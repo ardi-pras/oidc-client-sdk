@@ -232,40 +232,12 @@ final class HttpTokenRepository implements TokenRepositoryInterface
         $expiresIn = (int) ($result['expires_in'] ?? 0);
 
         return new Token(
-
-            accessToken:
             $result['access_token'],
-
-
-            refreshToken:
-            $result['refresh_token']
-            ??
-            null,
-
-
-            idToken:
-            $result['id_token']
-            ??
-            null,
-
-
-            expiresAt:
-            $expiresIn > 0
-            ? time() + $expiresIn
-            : null,
-
-
-            tokenType:
-            isset($result['token_type'])
-            ? $this->normalizeTokenType($result['token_type'])
-            : \OidcClient\Domain\Token\TokenType::Bearer,
-
-
-            scope:
-            $result['scope']
-            ??
-            null
-
+            $result['refresh_token'] ?? null,
+            $result['id_token'] ?? null,
+            $expiresIn > 0 ? time() + $expiresIn : null,
+            isset($result['token_type']) ? $this->normalizeTokenType($result['token_type']) : \OidcClient\Domain\Token\TokenType::Bearer,
+            $result['scope'] ?? null
         );
 
     }
