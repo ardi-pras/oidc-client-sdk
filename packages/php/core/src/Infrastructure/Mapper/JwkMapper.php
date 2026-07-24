@@ -42,7 +42,7 @@ final class JwkMapper
         foreach ($data['keys'] as $keyData) {
             try {
                 $keys[] = $this->mapKey($keyData);
-            } catch (InvalidArgumentException) {
+            } catch (InvalidArgumentException $exception) {
                 // Skip invalid or unsupported keys
             }
         }
