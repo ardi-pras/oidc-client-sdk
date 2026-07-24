@@ -66,8 +66,14 @@ Jika Anda ingin mengelola dependensi aplikasi via Composer (direkomendasikan), b
 ```json
 {
     "name": "your-vendor/your-app",
+    "repositories": [
+		{
+		"type": "vcs",
+		"url": "https://github.com/ardi-pras/oidc-client-sdk.git"
+		}
+	],
     "require": {
-        "php": "^8.1",
+        "php": "^7.4 || ^8.1",
         "oidc-client/sdk": "^1.0"
     },
     "autoload": {
